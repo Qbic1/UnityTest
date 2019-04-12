@@ -17,9 +17,9 @@ public class MotionController : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		dataPath = Application.dataPath + "/Data/output.txt";
-		if (File.Exists ("Assets/Data/input.txt")) {
-			StreamReader input = File.OpenText ("Assets/Data/input.txt");
+		dataPath = Application.streamingAssetsPath + "/Data/";
+		if (File.Exists (dataPath + "input.txt")) {
+			StreamReader input = File.OpenText (dataPath + "input.txt");
 			var positions = input.ReadLine ().Split(',');
 			var times = new List<string>();
 			while (!input.EndOfStream) {
@@ -36,7 +36,7 @@ public class MotionController : MonoBehaviour {
 	void PrintToFile()
 	{
 		if (!File.Exists(dataPath)){
-			var dataWriter = new StreamWriter(dataPath);
+			var dataWriter = new StreamWriter(dataPath + "output.txt");
 			for (int i=0; i < _transmitter.X.Count; i++)
 				dataWriter.WriteLine(_transmitter.X[i] + "," + _transmitter.Y[i]);
 			dataWriter.Flush ();
